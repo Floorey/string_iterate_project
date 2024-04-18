@@ -1,0 +1,5 @@
+# ninja log v5
+0	527	1713427175287354400	CMakeFiles/string_iterator.dir/main.cpp.o	faf83e2d52afd59a
+528	593	1713427175351352719	string_iterator	aa216b342a2f5e0f
+1	716	1713427984203684617	CMakeFiles/string_iterator.dir/main.cpp.o	faf83e2d52afd59a
+716	764	1713427984251683506	string_iterator	aa216b342a2f5e0f
