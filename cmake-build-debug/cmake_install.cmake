@@ -1,4 +1,4 @@
-# Install script for directory: /home/lukas/CLionProjects/string_iterator
+# Install script for directory: /home/lukas/CLionProjects/string_iterate_project
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/lukas/CLionProjects/string_iterator/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/lukas/CLionProjects/string_iterate_project/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
