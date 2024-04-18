@@ -6,6 +6,64 @@
 #include <algorithm>
 #include <cctype>
 
+
+double averageSentenceLength(const std::string& text) {
+    std::istringstream iss(text);
+    std::string sentence;
+    int numSentences = 0;
+    int totalSentenceLength = 0;
+    while (std::getline(iss, sentence, '.')) {
+        totalSentenceLength += sentence.length();
+        numSentences++;
+    }
+    if (numSentences == 0) {
+        return 0;
+    }
+    return static_cast<double>(totalSentenceLength) / numSentences;
+}
+double averageWordLength(const std::string& text) {
+    std::istringstream iss(text);
+    std::string word;
+    int numWOrds = 0;
+    int totalWordLength = 0;
+    while (iss >> word) {
+        word.erase(std::remove_if(word.begin(), word.end(), ispunct), word.end());
+        totalWordLength += word.length();
+        numWOrds++;
+    }
+    if (numWOrds == 0) {
+        return 0;
+    }
+    return static_cast<double>(totalWordLength) / numWOrds;
+}
+
+
+// Function to count the occurrence of each letter in the text
+std::map<char, int> count_Letters(const std::string& text) {
+    std::map<char, int> letterCount;
+    for (char c : text) {
+        if (std::isalpha(c)) {
+            letterCount[std::tolower(c)]++;
+        }
+    }
+    return letterCount;
+}
+std::string findMostFrequentLetters(const std::string& text, int numLetters) {
+    std::map<char, int> letterCount = count_Letters(text);
+
+    std::string mostFrequentLetters;
+    int maxCount = 0;
+    for (const auto& pair : letterCount){
+        if (pair.second > maxCount) {
+            maxCount = pair.second;
+            mostFrequentLetters = pair.first;
+        } else if (pair.second == maxCount) {
+            mostFrequentLetters += pair.first;
+        }
+    }
+    return mostFrequentLetters;
+}
+
 // Function to split a sentence into words
 std::vector<std::string> splitSentence(const std::string& sentence) {
     std::vector<std::string> words;
@@ -74,6 +132,25 @@ void analyzeText(const std::string& text) {
     }
     std::cout << "Average word length: " << averageWordLength << "\n";
 }
+size_t countBytes(const std::string& text) {
+    return text.size();
+}
+std::pair<int, int> countVowelsAndConsonants(const std::string& text) {
+    int numVowels = 0;
+    int numConsonants = 0;
+    for (char c : text) {
+        if (std::isalpha(c)) {
+            c = std::tolower(c);
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                numVowels++;
+            } else {
+                numConsonants++;
+            }
+        }
+    }
+    return std::make_pair(numVowels, numConsonants);
+}
+
 
 int main() {
     std::cout << "Please enter a text:\n";
@@ -81,6 +158,23 @@ int main() {
     std::getline(std::cin, text);
 
     analyzeText(text);
+
+    std::string mostFrequentLettes = findMostFrequentLetters(text, 5);
+    std::cout << "Most frequent letter(s):" << mostFrequentLettes << std::endl;
+
+    size_t numBytes = countBytes(text);
+    std::cout << "Number of bytes in the text:" << numBytes << std::endl;
+    auto vowelsAndConsonants = countVowelsAndConsonants(text);
+
+    std::cout << "Number of vowels in the text:" << vowelsAndConsonants.first << std::endl;
+    std::cout << "Number of consonants in the text:" << vowelsAndConsonants.second << std::endl;
+
+    double avgSentenceLen = averageSentenceLength(text);
+    double avgWordLen = averageWordLength(text);
+
+    std::cout << "Average sentence length:" << avgSentenceLen << "characters per sentence." << std::endl;
+    std::cout << "Average word length:" << avgWordLen << "characters per word:" << std::endl;
+
 
     return 0;
 }
